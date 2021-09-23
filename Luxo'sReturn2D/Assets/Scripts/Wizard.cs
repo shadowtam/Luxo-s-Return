@@ -12,15 +12,13 @@ public class Wizard : Enemy {
     }
 
     private void Shoot() {
-        print("im going to Shoot");
 		if(Time.time > fireTime) {
 			
-			Instantiate(projectile, transform.position, transform.rotation);
-			print("Shooting");
+			// Instantiate(projectile, transform.position, transform.rotation);
+            PoolManager.Instance.SpawnFromPool("WizardProjectile",transform.position, transform.rotation);
 			fireTime = Time.time + fireRate;
 		
 		}
-        print("shot");
     }
 
     private void Movement() {

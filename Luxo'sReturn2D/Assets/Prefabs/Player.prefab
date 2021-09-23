@@ -92,11 +92,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4119607051094264842}
   - component: {fileID: 4119607051094264843}
+  - component: {fileID: 4119607051094264841}
   - component: {fileID: 4119607051094264844}
   - component: {fileID: 4119607051094264845}
   - component: {fileID: 4119607051094264846}
   - component: {fileID: 4119607051094264840}
-  - component: {fileID: 4119607051094264841}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -131,88 +131,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48be4e24411bf704faac67bcf40eecdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 30
-  projectile: {fileID: 6184018849458060823, guid: 6cc4fa884075b3a419421f75ba26b97f, type: 3}
-  fireRate: 0.15
-  score: 0
   streak: 0
-  scoreRate: 1
-  scoreTime: 0
   healthTime: 3
-  healthM: 300
+  healthM: 500
+  health: 0
   regen: 15
-  ScoreGUI:
-    m_Name: Score
-    m_Normal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 1, g: 1, b: 1, a: 1}
-    m_Hover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Active:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Focused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnNormal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnHover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnActive:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnFocused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Margin:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Padding:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Overflow:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Font: {fileID: 12800000, guid: d65cf1890d353b14eb8535441298e28f, type: 3}
-    m_FontSize: 80
-    m_FontStyle: 1
-    m_Alignment: 0
-    m_WordWrap: 0
-    m_RichText: 1
-    m_TextClipping: 0
-    m_ImagePosition: 0
-    m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
-    m_StretchWidth: 1
-    m_StretchHeight: 0
   deathEffect: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 3}
-  gold: {fileID: 0}
-  goScreen: {fileID: 0}
-  mCam: {fileID: 0}
-  end: 0
+--- !u!114 &4119607051094264841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4119607051094264847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4ecccdc7ae1bb4d882d5a635276c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialAttack: 0
+  fireBall: {fileID: 21812698071188528, guid: 93f9866026a31e64e8139feea01fc3cb, type: 3}
+  lightningBall: {fileID: 21812698071188528, guid: b4354bbd3162c1d49ad8ab32a086b6fe, type: 3}
+  acidBall: {fileID: 21812698071188528, guid: 94c2d52f5b7d3eb4fa00d54c00d4730f, type: 3}
+  coldBall: {fileID: 21812698071188528, guid: a3136f47c73b5a243836945e472ab03b, type: 3}
+  fireRate: 0.15
+  saDuration: 5
+  saTimer: 0
+  currentType: 0
 --- !u!114 &4119607051094264844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,22 +241,3 @@ CapsuleCollider2D:
   m_Offset: {x: 0.019432545, y: 0.055900693}
   m_Size: {x: 1.738208, y: 2.0546563}
   m_Direction: 0
---- !u!114 &4119607051094264841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4119607051094264847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b4ecccdc7ae1bb4d882d5a635276c30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  specialAttack: 0
-  sAName: 
-  fireBall: {fileID: 6184018849458060823, guid: 6cc4fa884075b3a419421f75ba26b97f, type: 3}
-  lightningBall: {fileID: 0}
-  acidBall: {fileID: 0}
-  windBall: {fileID: 0}
-  fireRate: 0.15

@@ -88,12 +88,14 @@ MonoBehaviour:
   damage: 0
   damageRate: 0.2
   damageTime: 0
-  fireRate: 1
+  fireRate: 1.5
   projectile: {fileID: 4620922864563850381, guid: 37f76d3d065262f418692a2b10e45bb9, type: 3}
   deathEffect: {fileID: 159918, guid: a0040bf7072bc2f4e82d887d50a9c5e2, type: 3}
   race: 
   origin: {x: 0, y: 0, z: 0}
   spriteDir: -90
+  orcTime: 0
+  otMod: 0
 --- !u!1 &4440052268192310078
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,13 +13,13 @@ public class Scoregui : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-		score = GameManager.instance.player.GetComponent<Player>().getScore();
-	}
+    // void Update() {
+	// 	score = GameManager.instance.getScore();
+	// }
     	
-	void OnGUI() {
+	// void OnGUI() {
 		
-		GUI.Label(new Rect (5, 25, 50, 20), "" + score, ScoreGUI);
+	// 	GUI.Label(new Rect (5, 25, 50, 20), "" + score, ScoreGUI);
 		
-	}
+	// }
 }

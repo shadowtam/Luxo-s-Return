@@ -24,11 +24,12 @@ public class EnemySpawner : MonoBehaviour {
 	private Vector3 pos;
 	
 	private bool dir = true;
+	GameManager GM;
 	
 	// Start is called before the first frame update
     void Start() {
-        
-		startTimer += Time.time + 5;
+        GM = GameManager.instance;
+		startTimer += Time.time + Random.Range(0,8);;
 		
     }
 
@@ -37,18 +38,18 @@ public class EnemySpawner : MonoBehaviour {
 		
 		if(Time.time > startTimer) {
 			
-			if(GameManager.instance.player.GetComponent<Player>().getEnd()) {
+			if(GameManager.instance.getEnd()) {
 				
 				Destroy(this.gameObject);
 				
 			}
 			
-			pos = transform.position;
+			// pos = transform.position;
 			
 			SpawnEnemy();
-			Movement();
+			// Movement();
 			
-			transform.position = pos;
+			// transform.position = pos;
 			
 		}
 	
@@ -59,9 +60,27 @@ public class EnemySpawner : MonoBehaviour {
 		if(Time.time > spawnTimer) {
 		
 			if(GameManager.instance.numEnemies < GameManager.instance.maxEnemies) {
-		
-				Instantiate(enemy, transform.position, transform.rotation);
 				
+				Vector2 pos;
+				int i = Random.Range(0,2);
+				if(i == 0) {
+					i = Random.Range(0,2);
+					if(i == 0) {
+						pos = new Vector2(Random.Range(GM.bound.x, GM.bound.y), GM.bound.z);
+					} else{
+						pos = new Vector2(Random.Range(GM.bound.x, GM.bound.y), GM.bound.w);
+					}
+				} else{
+					i = Random.Range(0,2);
+					if(i == 0) {
+						pos = new Vector2(GM.bound.x,Random.Range(GM.bound.z, GM.bound.w));
+					} else{
+						pos = new Vector2(GM.bound.y,Random.Range(GM.bound.z, GM.bound.w));
+					}
+				}
+
+				GameObject thisEnemy = Instantiate(enemy, pos, transform.rotation);
+				thisEnemy.transform.parent = transform;
 				spawnTimer = Time.time+ spawnRate;
 			
 				GameManager.instance.ManageEnemies(1);

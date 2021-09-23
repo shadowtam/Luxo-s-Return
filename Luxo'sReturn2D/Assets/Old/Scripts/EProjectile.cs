@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EProjectile : MonoBehaviour {
+public class EProjectile : MonoBehaviour, IPooledObject {
     
 	public float lifeTime = 3.0f;
 	
@@ -11,16 +11,20 @@ public class EProjectile : MonoBehaviour {
 	public float damage = 2.0f;
 	[SerializeField] bool wizard = false;
 	private Rigidbody2D rb;
-    [SerializeField] private float spriteDir;
+    [SerializeField] private float spriteDir, lifeTimer;
 	// Start is called before the first frame update
-    void Start() {
-        Destroy(this.gameObject, lifeTime);
+    public void OnObjectSpawn() {
+        // Destroy(this.gameObject, lifeTime);
 		rb = GetComponent<Rigidbody2D>();
+		lifeTimer = Time.time + lifeTime;
     }
 
     // Update is called once per frame
     void Update() {
         Movement();
+		if(lifeTimer < Time.time) {
+			this.gameObject.SetActive(false);
+		}
     }
 	
 	internal void Movement() {
@@ -42,7 +46,8 @@ public class EProjectile : MonoBehaviour {
 			
 			other.GetComponent<Player>().takeDamage(damage);
 			
-			Destroy(this.gameObject);
+			// Destroy(this.gameObject);
+			this.gameObject.SetActive(false);
 			
 		}
 		

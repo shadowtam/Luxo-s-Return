@@ -14,7 +14,7 @@ public class Buttons : MonoBehaviour {
 	
 	public void playOnClick() {
 		
-		SceneManager.LoadScene("SampleScene");
+		SceneManager.LoadScene("Transition");
 		
 	}
 	

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 	
+	GameManager GM;
 	public float moveSpeed = 65.0f;
 	public float health = 20.0f;
 	
@@ -26,9 +27,12 @@ public class Enemy : MonoBehaviour {
     internal Rigidbody2D rb;
 
     [SerializeField] internal float spriteDir;
+    private bool ontrack;
+    [SerializeField] private float orcTime,otMod;
 
-	private void Awake() {
+    private void Awake() {
 		rb = GetComponent<Rigidbody2D>();
+		GM = GameManager.instance;
 	}
 
     // Start is called before the first frame update
@@ -36,16 +40,17 @@ public class Enemy : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
         
 		if(race == "Orc"){
-			if(GameManager.instance.player) {
+			if(GM.player) {
 				Look();
 			}
+			orcTime = Time.time + otMod;
 		}
 		
     }
 
     // Update is called once per frame
     void Update() {
-        if(GameManager.instance.player.GetComponent<Player>().getEnd()) {
+        if(GM.getEnd()) {
 			
 			Destroy(this.gameObject);
 			
@@ -78,7 +83,7 @@ public class Enemy : MonoBehaviour {
 	
 	private void DMovement() {
 		
-		if(GameManager.instance.player) {
+		if(GM.player) {
 			Look();
 		}
 		
@@ -88,14 +93,16 @@ public class Enemy : MonoBehaviour {
 	}
 
     internal void Look() {
-		Vector2 playerLoc = GameManager.instance.player.transform.position;
+		Vector2 playerLoc = GM.player.transform.position;
         Vector2 lookDir = playerLoc - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - spriteDir;
         rb.rotation = angle;
     }
 
     private void OMovement() {
-		
+		if(GM.player && orcTime > Time.time) {
+			Look();
+		}
 		position += transform.up * moveSpeed * Time.deltaTime;
 		Boundary();		
 		
@@ -103,7 +110,7 @@ public class Enemy : MonoBehaviour {
 	
 	private void EMovement() {
 			
-		if(GameManager.instance.player) {
+		if(GM.player) {
 			
 			Look();
 			
@@ -118,7 +125,7 @@ public class Enemy : MonoBehaviour {
 	
 	private void HMovement() {
 		
-		if(GameManager.instance.player) {
+		if(GM.player) {
 			Look();
 		}		
 		Shoot();
@@ -129,9 +136,9 @@ public class Enemy : MonoBehaviour {
 	
 	private void Boundary() {
 		
-		if(position.x > (GameManager.instance.xBoundary + 41) || position.x < -(GameManager.instance.xBoundary + 41) || position.z > GameManager.instance.zBoundary || position.z < -GameManager.instance.zBoundary) {
+		if(position.x > (GM.bound.x + 2) || position.x < GM.bound.y - 2 || position.y > GM.bound.z + 1 || position.y < GM.bound.w -1) {
 			Destroy(this.gameObject);
-			GameManager.instance.ManageEnemies(-1);
+			GM.ManageEnemies(-1);
 		} 
 		
 	}
@@ -143,10 +150,10 @@ public class Enemy : MonoBehaviour {
 		
 		if(health <= 0) {
 			
-			GameManager.instance.player.GetComponent<Player>().ChangeScore(3, 1);
+			GM.ChangeScore(3, 1);
 			Destroy(this.gameObject);
 			Instantiate(deathEffect, transform.position,transform.rotation);
-			GameManager.instance.ManageEnemies(-1);
+			GM.ManageEnemies(-1);
 			
 		}
 		
@@ -161,7 +168,7 @@ public class Enemy : MonoBehaviour {
 			damageTime = Time.time + damageRate;
 			Destroy(this.gameObject);
 			Instantiate(deathEffect, transform.position,transform.rotation);
-			GameManager.instance.ManageEnemies(-1);
+			GM.ManageEnemies(-1);
 			
 		}
 		
@@ -171,8 +178,8 @@ public class Enemy : MonoBehaviour {
 		
 		if(Time.time > fireTime) {
 			
-			Instantiate(projectile, transform.position, transform.rotation);
-			
+			// Instantiate(projectile, transform.position, transform.rotation);
+			PoolManager.Instance.SpawnFromPool("EProjectile",transform.position, transform.rotation);
 			fireTime = Time.time + fireRate;
 		
 		}

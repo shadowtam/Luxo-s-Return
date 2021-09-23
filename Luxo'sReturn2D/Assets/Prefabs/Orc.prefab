@@ -57,6 +57,8 @@ MonoBehaviour:
   race: Orc
   origin: {x: 0, y: 0, z: 0}
   spriteDir: 90
+  orcTime: 0
+  otMod: 0.2
 --- !u!50 &236848583554010746
 Rigidbody2D:
   serializedVersion: 4
